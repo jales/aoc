@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using AoC.Infrastructure.Benchmarks;
 using AoC.Infrastructure.Leaderboards;
 using AoC.Infrastructure.Persistency;
 using AoC.Infrastructure.Solving;
@@ -26,6 +27,7 @@ namespace AoC.Infrastructure
                     TestCommand.Configure(configurator);
                     CleanCommand.Configure(configurator);
                     ListCommand.Configure(configurator);
+                    BenchmarkCommand.Configure(configurator);
                 });
 
             return await app.RunAsync(args);

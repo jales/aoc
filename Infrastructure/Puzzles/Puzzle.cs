@@ -27,6 +27,8 @@ namespace AoC.Infrastructure.Puzzles
             }
         }
 
+        public object BenchmarkPart1() => Part1();
+
         protected abstract object Part1();
 
         public PuzzleResult SolvePart2(PuzzleRun run)
@@ -43,6 +45,8 @@ namespace AoC.Infrastructure.Puzzles
                 return Part2Exception(run, e, sw.Elapsed, Log);
             }
         }
+
+        public object BenchmarkPart2() => Part2();
 
         protected abstract object Part2();
 

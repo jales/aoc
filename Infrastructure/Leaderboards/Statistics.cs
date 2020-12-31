@@ -106,7 +106,7 @@ namespace AoC.Infrastructure.Leaderboards
                .AddColumn("Late\r\nSubmissions", c => c.Centered().NoWrap())
                 // Last Submission
                .AddColumn("Last\r\nSubmission", c => c.Centered().NoWrap())
-               .Caption("¹ Assumes full completion".EscapeMarkup(), new Style(Color.Grey));;
+               .Caption("¹ Assumes full completion".EscapeMarkup(), new Style(Color.Grey));
         }
     }
 }

@@ -43,7 +43,7 @@ namespace AoC.Infrastructure.Puzzles
            .OrderBy(kvp => kvp.Key.day)
            .Select(kvp => kvp.Value)
            .ToList();
-        
+
         public static IEnumerable<PuzzleRun> GetRunsForPuzzle(PuzzleRegistration registration)
         {
             foreach (var testRun in GetTestRunsForPuzzle(registration.PuzzleType))
@@ -72,7 +72,7 @@ namespace AoC.Infrastructure.Puzzles
         {
             return OfficialRun[puzzleType];
         }
-        
+
         public static void AddTestRun(Type puzzleType, string input, object? part1Solution, object? part2Solution)
         {
             TestRuns.TryAdd(puzzleType, new List<PuzzleRun>());
@@ -96,6 +96,11 @@ namespace AoC.Infrastructure.Puzzles
         public static bool IsSequential(PuzzleRegistration registration)
         {
             return SequentialPuzzles.Contains(registration.PuzzleType);
+        }
+
+        public static Func<string, Puzzle> GetPuzzleFactory(Type puzzleType)
+        {
+            return Registrations.First(kvp => kvp.Value.PuzzleType == puzzleType).Value.Factory;
         }
     }
 }

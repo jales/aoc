@@ -23,6 +23,7 @@ namespace AoC.Infrastructure.Services
         public static string Fastest(string value) => $"[darkseagreen4]{value}[/]";
         public static string Slowest(string value) => $"[hotpink3]{value}[/]";
         public static string Time(string value) => $"[steelblue]{value}[/]";
+        public static string Memory(string value) => $"[darkseagreen4]{value}[/]";
 
         public static int RenderedLength(TimeSpan? value)
         {
@@ -60,8 +61,8 @@ namespace AoC.Infrastructure.Services
             T result = default;
 
             await AnsiConsole.Status()
-               .Spinner(Spinner.Known.Dots8)
-               .SpinnerStyle(Style.Parse("blue bold"))
+               .Spinner(Spinner.Known.Dots2)
+               .SpinnerStyle(Style.Parse("aqua"))
                .StartAsync(status, async _ =>
                 {
                     result = await function();
@@ -246,19 +247,7 @@ namespace AoC.Infrastructure.Services
 
         private static void RenderPuzzleElapsedTime(PuzzleResult puzzleResult)
         {
-            var elapsed = puzzleResult.ElapsedTime;
-            if(elapsed.TotalSeconds > 1)
-            {
-                AnsiConsole.MarkupLine($"[fuchsia][[\ufa1a {elapsed.TotalSeconds,8:0.000} s ]][/]");
-            }
-            else if(elapsed.TotalMilliseconds > 1)
-            {
-                AnsiConsole.MarkupLine($"[fuchsia][[\ufa1a {elapsed.TotalMilliseconds,8:0.000} ms]][/]");
-            }
-            else
-            {
-                AnsiConsole.MarkupLine($"[fuchsia][[\ufa1a {elapsed.TotalMilliseconds*1000,8:0.000} µs]][/]");
-            }
+            AnsiConsole.MarkupLine($"[fuchsia][[\ufa1a {Duration(puzzleResult.ElapsedTime)}]][/]");
         }
 
         private static void RenderPuzzleLogs(PuzzleResult puzzleResult)
@@ -295,6 +284,58 @@ namespace AoC.Infrastructure.Services
                 AnsiConsole.WriteLine("Removed 1 entry from the local puzzle input cache.");
             else
                 AnsiConsole.WriteLine($"Removed {count} entries from the local puzzle input cache.");
+        }
+
+        private static string Duration(TimeSpan timeSpan)
+        {
+            if(timeSpan.TotalSeconds > 1)
+            {
+                return $"{timeSpan.TotalSeconds,8:0.000} s ";
+            }
+
+            if(timeSpan.TotalMilliseconds > 1)
+            {
+                return $"{timeSpan.TotalMilliseconds,8:0.000} ms";
+            }
+
+            return $"{timeSpan.TotalMilliseconds*1000,8:0.000} µs";
+        }
+
+        public static string DurationFromNanoseconds(string nanoseconds)
+        {
+            var value = double.Parse(nanoseconds.Split(' ')[0]);
+
+            if (value < 1000)
+                return $"{value,8:0.000} ns";
+
+            value /= 1000;
+            if (value < 1000)
+                return $"{value,8:0.000} [bold]µs[/]";
+
+            value /= 1000;
+            if (value < 1000)
+                return $"{value,8:0.000} ms";
+
+            value /= 1000;
+            return $"{value,8:0.000} s ";
+        }
+
+
+
+        public static string MemoryFromBytes(string bytes)
+        {
+            var value = double.Parse(bytes.Split(' ')[0]);
+
+            value /= 1024;
+            if (value < 1024)
+                return $"{value,8:0.000} KB";
+
+            value /= 1024;
+            if (value < 1024)
+                return $"{value,8:0.000} MB";
+
+            value /= 1024;
+            return $"{value,8:0.000} GB";
         }
     }
 }
