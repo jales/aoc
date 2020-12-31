@@ -3,7 +3,7 @@ using AoC.Infrastructure.Puzzles;
 
 namespace AoC.Year2015
 {
-    internal sealed class Puzzle_2015_25 : Puzzle
+    public sealed class Puzzle_2015_25 : Puzzle
     {
         public static void Configure()
         {

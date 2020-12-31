@@ -3,7 +3,7 @@ using AoC.Support.Intcode;
 
 namespace AoC.Year2019
 {
-    internal sealed class Puzzle_2019_13 : Puzzle
+    public sealed class Puzzle_2019_13 : Puzzle
     {
         public static void Configure()
         {

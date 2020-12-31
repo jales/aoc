@@ -6,7 +6,7 @@ using static System.Math;
 
 namespace AoC.Year2019
 {
-    internal sealed class Puzzle_2019_10 : Puzzle
+    public sealed class Puzzle_2019_10 : Puzzle
     {
         public static void Configure()
         {

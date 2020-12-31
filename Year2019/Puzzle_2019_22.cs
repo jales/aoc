@@ -7,7 +7,7 @@ using static System.Numerics.BigInteger;
 
 namespace AoC.Year2019
 {
-    internal sealed class Puzzle_2019_22 : Puzzle
+    public sealed class Puzzle_2019_22 : Puzzle
     {
         public static void Configure()
         {

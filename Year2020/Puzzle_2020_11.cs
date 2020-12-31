@@ -8,7 +8,7 @@ using AoC.Support;
 
 namespace AoC.Year2020
 {
-	internal sealed class Puzzle_2020_11 : Puzzle
+	public sealed class Puzzle_2020_11 : Puzzle
     {
         public static void Configure()
         {

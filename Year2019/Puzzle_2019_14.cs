@@ -5,7 +5,7 @@ using AoC.Infrastructure.Puzzles;
 
 namespace AoC.Year2019
 {
-    internal sealed class Puzzle_2019_14 : Puzzle
+    public sealed class Puzzle_2019_14 : Puzzle
     {
         public static void Configure()
         {
