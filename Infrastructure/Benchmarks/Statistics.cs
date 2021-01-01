@@ -40,17 +40,17 @@ namespace AoC.Infrastructure.Benchmarks
                 _ => MemberName("Solving part 2"),
             };
 
-            yield return Time(DurationFromNanoseconds(summary.Table.Columns.First(c => c.Header == "Min").Content[index]));
-            yield return Time(DurationFromNanoseconds(summary.Table.Columns.First(c => c.Header == "Mean").Content[index]));
-            yield return Time(DurationFromNanoseconds(summary.Table.Columns.First(c => c.Header == "P95").Content[index]));
-            yield return Time(DurationFromNanoseconds(summary.Table.Columns.First(c => c.Header == "Max").Content[index]));
-            yield return Time(DurationFromNanoseconds(summary.Table.Columns.First(c => c.Header == "Error").Content[index]));
-            yield return Time(DurationFromNanoseconds(summary.Table.Columns.First(c => c.Header == "StdDev").Content[index]));
+            yield return Time(ParseNanoseconds(summary.Table.Columns.First(c => c.Header == "Min").Content[index]));
+            yield return Time(ParseNanoseconds(summary.Table.Columns.First(c => c.Header == "Mean").Content[index]));
+            yield return Time(ParseNanoseconds(summary.Table.Columns.First(c => c.Header == "P95").Content[index]));
+            yield return Time(ParseNanoseconds(summary.Table.Columns.First(c => c.Header == "Max").Content[index]));
+            yield return Time(ParseNanoseconds(summary.Table.Columns.First(c => c.Header == "Error").Content[index]));
+            yield return Time(ParseNanoseconds(summary.Table.Columns.First(c => c.Header == "StdDev").Content[index]));
 
-            yield return Memory(MemoryFromBytes(summary.Table.Columns.First(c => c.Header == "Allocated").Content[index]));
-            yield return summary.Table.Columns.First(c => c.Header == "Gen 0").Content[index];
-            yield return summary.Table.Columns.First(c => c.Header == "Gen 1").Content[index];
-            yield return summary.Table.Columns.First(c => c.Header == "Gen 2").Content[index];
+            yield return Memory(ParseBytes(summary.Table.Columns.First(c => c.Header == "Allocated").Content[index]));
+            yield return GCCount(ParseGCCount(summary.Table.Columns.First(c => c.Header == "Gen 0").Content[index]));
+            yield return GCCount(ParseGCCount(summary.Table.Columns.First(c => c.Header == "Gen 1").Content[index]));
+            yield return GCCount(ParseGCCount(summary.Table.Columns.First(c => c.Header == "Gen 2").Content[index]));
 
             yield return summary.Table.Columns.First(c => c.Header == "IterationCount").Content[index];
         }

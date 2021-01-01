@@ -22,8 +22,9 @@ namespace AoC.Infrastructure.Services
 
         public static string Fastest(string value) => $"[darkseagreen4]{value}[/]";
         public static string Slowest(string value) => $"[hotpink3]{value}[/]";
-        public static string Time(string value) => $"[steelblue]{value}[/]";
-        public static string Memory(string value) => $"[darkseagreen4]{value}[/]";
+        public static string Time(string value) => value.Contains('-') ? Disabled(value) : $"[steelblue]{value}[/]";
+        public static string Memory(string value) => value.Contains('-') ? Disabled(value) : $"[darkseagreen4]{value}[/]";
+        public static string GCCount(string value) => value.Contains('-') ? Disabled(value) : $"[darkseagreen4]{value}[/]";
 
         public static int RenderedLength(TimeSpan? value)
         {
@@ -301,9 +302,9 @@ namespace AoC.Infrastructure.Services
             return $"{timeSpan.TotalMilliseconds*1000,8:0.000} µs";
         }
 
-        public static string DurationFromNanoseconds(string nanoseconds)
+        public static string ParseNanoseconds(string nanoseconds)
         {
-            var value = double.Parse(nanoseconds.Split(' ')[0]);
+            if (!double.TryParse(nanoseconds.Split(' ')[0], out var value)) return "-   ";
 
             if (value < 1000)
                 return $"{value,8:0.000} ns";
@@ -320,11 +321,9 @@ namespace AoC.Infrastructure.Services
             return $"{value,8:0.000} s ";
         }
 
-
-
-        public static string MemoryFromBytes(string bytes)
+        public static string ParseBytes(string bytes)
         {
-            var value = double.Parse(bytes.Split(' ')[0]);
+            if (!double.TryParse(bytes.Split(' ')[0], out var value)) return "-   ";
 
             value /= 1024;
             if (value < 1024)
@@ -336,6 +335,12 @@ namespace AoC.Infrastructure.Services
 
             value /= 1024;
             return $"{value,8:0.000} GB";
+        }
+
+        public static string ParseGCCount(string bytes)
+        {
+            return !double.TryParse(bytes.Split(' ')[0], out var value) ? "-   " : $"{value,5:0.000}";
+
         }
     }
 }
